@@ -1,11 +1,8 @@
+import CategoryContainer from './components/category-container/category-container.component';
 
 
 function App() {
-  return (
-   <div>
-    Hello World
-   </div>
-  );
+  return <CategoryContainer />
 }
 
 export default App;
