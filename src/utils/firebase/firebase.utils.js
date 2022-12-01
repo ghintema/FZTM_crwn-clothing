@@ -1,5 +1,10 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
+import { getAuth, 
+         signInWithRedirect, 
+         signInWithPopup, 
+         GoogleAuthProvider,
+         GithubAuthProvider, 
+         createUserWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 // doc retrieves the document as a whole
 // getDoc/setDoc is to access specific data inside an document
@@ -33,15 +38,16 @@ providerGithub.setCustomParameters({
     prompt: 'select_account'
 })
 
-export const auth = getAuth();
+export const auth = getAuth(); // auth is a singleton that keeps track of the authentication-state of the app.
 export const signInWithGooglePopup = () => signInWithPopup(auth, providerGoogle)
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, providerGoogle)
 export const signInWithGithubPopup = () => signInWithPopup(auth, providerGithub)
 
 
 export const db = getFirestore();
 
-export const createUserDocumentFromAuth = async (userAuth) => {
-    
+export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {} ) => {
+    if (!userAuth) return;
     const userDocRef = doc(db, 'user', userAuth.uid); // this creates a reference-object to a specific document inside the 'user' collection.
     console.log(userDocRef)
 
@@ -56,7 +62,8 @@ export const createUserDocumentFromAuth = async (userAuth) => {
             await setDoc(userDocRef, {
                 displayName,
                 email,
-                createdAt
+                createdAt,
+                ...additionalInformation
             }) 
             console.log('test')
         } catch(error) {
@@ -66,4 +73,11 @@ export const createUserDocumentFromAuth = async (userAuth) => {
     }
 
     return userDocRef;
+};
+
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+    if (!email || !password) return;
+
+    return await createUserWithEmailAndPassword(auth, email, password)
 }
