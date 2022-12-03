@@ -5,7 +5,9 @@ import { getAuth,
          signInWithEmailAndPassword, 
          GoogleAuthProvider,    
          GithubAuthProvider, 
-         createUserWithEmailAndPassword } from 'firebase/auth';
+         createUserWithEmailAndPassword,
+         signOut,
+         onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 // doc retrieves the document as a whole
 // getDoc/setDoc is to access specific data inside an document
@@ -50,13 +52,12 @@ export const db = getFirestore();
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {} ) => {
     if (!userAuth) return;
     const userDocRef = doc(db, 'user', userAuth.uid); // this creates a reference-object to a specific document inside the 'user' collection.
-    console.log(userDocRef)
 
     const userSnapshot = await getDoc(userDocRef); // using the reference to get all data of that document
     // console.log(userSnapshot)
     // console.log(userSnapshot.exists()) // this checks for the existence of userDocRef INSIDE of the firestore db.
 
-    if(!userSnapshot.exists()) { // if userDocRef does not yet exist in the database, than create it.
+    if(!userSnapshot.exists()) { // only if userDocRef does not yet exist in the database, than create it.
         const { displayName, email } = userAuth;
         const createdAt = new Date();
         try {
@@ -66,7 +67,6 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
                 createdAt,
                 ...additionalInformation
             }) 
-            console.log('test')
         } catch(error) {
                 console.log('error creating the user', error);
         }
@@ -89,3 +89,9 @@ if (!email || !password) return;
 
     return await signInWithEmailAndPassword(auth, email, password)
 }
+
+export const signOutUser = async () => await signOut(auth);
+
+
+// 'onAuthStateChanged' establishes a listener who invokes the callback whenever there is a change in the auth-object.
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);

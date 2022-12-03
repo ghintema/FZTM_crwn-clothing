@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { signInAuthUserWithEmailAndPassword,
-         createUserDocumentFromAuth,
          signInWithGooglePopup} from "../../utils/firebase/firebase.utils";
 
 import FormInput from "../form-input/form-input.component";
@@ -19,24 +18,24 @@ function SingInForm() {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
      
-
+    
 
     const onChangeHandler = (event) => {
         const {name, value} = event.target;
-
         setFormFields({...formFields, [name]: value })
     }
 
     const signInWithGoogle = async () => {
-        const { user } = await signInWithGooglePopup();
-        await createUserDocumentFromAuth(user) // really necessary here? 
+        await signInWithGooglePopup();
+       // setting the user-context and creating userDocument-enty in the firestore is done in the auth-change-listener.
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
-            const response = await signInAuthUserWithEmailAndPassword(email, password);
+            const { user } = await signInAuthUserWithEmailAndPassword(email, password);
+            // setCurrentUser(user); //this is done centralized in user.context via changeListener on the auth.
             setFormFields(defaultFormFields);
         } catch (error) {
             switch (error.code) {
