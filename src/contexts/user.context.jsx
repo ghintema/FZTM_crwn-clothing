@@ -8,10 +8,11 @@ import { onAuthStateChangedListener, createUserDocumentFromAuth } from "../utils
 
 // UserContext is the actual object we want to access and change inside the components.
 export const UserContext = createContext({
-    // default value here
+    // theese default value argument(s) are only being used, when a component does not have a matching provider.
     currentUser: null,
     setCurrentUser: () => null
 });
+
 
 
 // this is the wrapper-component to spread the value among its children
