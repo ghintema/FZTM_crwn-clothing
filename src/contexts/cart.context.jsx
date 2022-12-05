@@ -26,6 +26,7 @@ export const CartProvider = ({ children }) => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const [cartCount, setCartCount] = useState(0);
+    const [cartSum, setCartSum] = useState(0);
 
     const addItemToCart = (productToAdd) => {
 
@@ -50,10 +51,10 @@ export const CartProvider = ({ children }) => {
         const cartItemsCopy = [...cartItems];
         const index = cartItems.findIndex((item) => item.id === productToChange.id);
         cartItemsCopy[index].quantity = Math.max(cartItemsCopy[index].quantity + value, 0);
-        if(cartItemsCopy[index].quantity === 0) {
-            removeItemFromCart(productToChange);
-            return;
-        }
+        // if(cartItemsCopy[index].quantity === 0) {
+        //     removeItemFromCart(productToChange);
+        //     return;
+        // }
         setCartItems(cartItemsCopy)
     }
 
@@ -61,12 +62,19 @@ export const CartProvider = ({ children }) => {
         const total = cartItems.reduce((accumulator, current) => accumulator + current.quantity, 0);
         setCartCount(total);
     },[cartItems])
+
+
+    useEffect(() => {
+        const sum = cartItems.reduce((accumulator, current) => accumulator + (current.quantity * current.price), 0);
+        setCartSum(sum);
+    },[cartItems])
     
     const value = { isCartOpen, 
                     setIsCartOpen, 
                     cartItems, 
                     addItemToCart, 
-                    cartCount, 
+                    cartCount,
+                    cartSum, 
                     changeCartItemQuantity, 
                     removeItemFromCart}
 
