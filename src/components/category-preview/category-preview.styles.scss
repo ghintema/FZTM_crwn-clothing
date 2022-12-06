@@ -1,0 +1,39 @@
+.category-preview-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+  
+    .title {
+      font-size: 28px;
+      margin-bottom: 25px;
+      cursor: pointer;
+    }
+  
+    .preview {
+
+        // getting a grid with a max-number of auto-filled columns. 
+        // https://css-tricks.com/an-auto-filling-css-grid-with-max-columns/
+        --grid-layout-gap: 10px;
+        --grid-column-count: 4;
+        --grid-item--min-width: 220px;
+      
+        /**
+         * Calculated values.
+         */
+        --gap-count: calc(var(--grid-column-count) - 1);
+        --total-gap-width: calc(var(--gap-count) * var(--grid-layout-gap));
+        --grid-item--max-width: calc((100% - var(--total-gap-width)) / var(--grid-column-count) - 10px); // substracted an extra 10px here to get the four columns
+      
+        display: grid;
+        justify-content: center;
+        //   grid-template-columns: repeat(4, 1fr);
+        //   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      
+        grid-template-columns: repeat(auto-fill, minmax(max(var(--grid-item--min-width), var(--grid-item--max-width)), 1fr));
+
+        column-gap: 20px;
+        row-gap: 20px;
+    
+    }
+  }
+  

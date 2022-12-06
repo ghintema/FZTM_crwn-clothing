@@ -1,9 +1,14 @@
 .navigation {
     height: 70px;
-    width: 100%;
+    width: calc(100% - 80px);
     display: flex;
     justify-content: space-between;
-    margin-bottom: 25px;
+    // margin-bottom: 50px;
+    // border: 2px solid red;
+    position: fixed;
+    top: 0px;
+    z-index: 10;
+    background-color: white;
   
     .logo-container {
         height: 100%;
@@ -13,6 +18,7 @@
   
     .nav-links-container {
         width: 50%;
+        min-width: 205px;
         height: 100%;
         display: flex;
         align-items: center;
@@ -32,5 +38,9 @@
             cursor: pointer;
         }
     }
+}
+
+.navigation + * {
+    padding-top: 100px;
 }
   
