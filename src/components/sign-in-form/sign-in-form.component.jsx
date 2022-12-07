@@ -87,7 +87,7 @@ function SingInForm() {
                 </Button>
                 <Button 
                     children='GOOGLE SIGN IN'
-                    // typy="button"
+                    type="button"
                     buttonType='google' 
                     onClick={signInWithGoogle}>
                 </Button>
