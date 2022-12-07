@@ -27,7 +27,6 @@ export const UserProvider = ({ children }) => {
         // calling this effect once establishes a listener on auth-state-changes and invokes the callback on any change
         // this way you can centralize 'setCurrentUser(user)' to one single place and it is invoked automatically on every user-change.
         const unsubscribe = onAuthStateChangedListener((user) => {
-            console.log(user)
             if (user) { // only createUserDocument if it has not turned to null (wich it does in case of sign-out)
                 createUserDocumentFromAuth(user) 
             }
