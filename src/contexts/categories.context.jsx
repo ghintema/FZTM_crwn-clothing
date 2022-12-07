@@ -26,12 +26,10 @@ export const CategoriesProvider = ({ children }) => {
     useEffect(() => {
         const getCategoriesMap = async () => {
             const categoryMap = await getCategoriesAndDocumentsFromFirestore();
-            console.log(categoryMap)
             setCategoriesMap(categoryMap)
         }
         getCategoriesMap()
     },[])
-    console.log(categoriesMap)
     const value = { categoriesMap, setCategoriesMap }
     return <CategoriesContext.Provider value={value}> {children} </CategoriesContext.Provider>
 

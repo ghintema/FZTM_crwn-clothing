@@ -7,6 +7,13 @@
       font-size: 28px;
       margin-bottom: 25px;
       cursor: pointer;
+      padding: 0 30px 0 0;
+      font-weight: 300;
+
+      &:hover {
+        // text-decoration: underline;
+        font-weight: 700;
+      }
     }
   
     .preview {
@@ -15,7 +22,7 @@
         // https://css-tricks.com/an-auto-filling-css-grid-with-max-columns/
         --grid-layout-gap: 10px;
         --grid-column-count: 4;
-        --grid-item--min-width: 220px;
+        --grid-item--min-width: 200px;
       
         /**
          * Calculated values.

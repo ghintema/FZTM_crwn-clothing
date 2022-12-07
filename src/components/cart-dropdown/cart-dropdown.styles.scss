@@ -12,23 +12,24 @@
   z-index: 5;
  
 
-  .empty-message {
-    font-size: 18px;
-    margin: 50px auto;
+  .empty-cart-message {
+    margin: 50% auto;
+    font-weight: 700;
   }
 
   .cart-items {
     height: 240px;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
-    
+    overflow-x: hidden;    
   }
 
   button {
     margin-top: auto;
   }
 }
+
+
 
 /* width */
 ::-webkit-scrollbar {
@@ -51,5 +52,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #b30000; 
 }
+
+
 
 

@@ -12,7 +12,7 @@ import './navigation.styles.scss'
 function Navigation() {
 
     const { currentUser } = useContext(UserContext);
-    const { isCartOpen } = useContext(CartContext);
+    const { isCartOpen, setIsCartOpen } = useContext(CartContext);
 
     const signOutHandler = async () => {
         await signOutUser();
@@ -27,13 +27,13 @@ function Navigation() {
                 </Link>
 
                 <div className="nav-links-container">
-                    <Link className="nav-link" to="/shop">
-                        SHOP
+                    <Link className="nav-link" to="/shop" onClick={() => setIsCartOpen(false)}>
+                        SHOP    
                     </Link>
                     {currentUser ? (
                         <button className="sign-out-button" onClick={signOutHandler} >SIGN OUT</button>
                     ) : ( 
-                        <Link className="nav-link" to="/auth">
+                        <Link className="nav-link" to="/auth" onClick={() => setIsCartOpen(false)}>
                             SIGN IN
                         </Link>
                     )}

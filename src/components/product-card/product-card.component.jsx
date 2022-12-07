@@ -6,9 +6,17 @@ import { CartContext } from '../../contexts/cart.context';
 function ProductCard({product}) {
     
     const { name, id, imageUrl, price } = product;
-    const { addItemToCart } = useContext(CartContext);
+    const { addItemToCart, isCartOpen, setIsCartOpen } = useContext(CartContext);
 
-    const addProductToCart = () => addItemToCart(product)
+    const addProductToCart = () => {
+        addItemToCart(product)
+
+        // if cart has not been open before, open it for a short view.
+        if (!isCartOpen) {
+            setIsCartOpen(true);
+            setTimeout(() => setIsCartOpen(false), 2000)
+        }
+    }
 
     return ( 
         <div className='product-card-container'>
