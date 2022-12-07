@@ -11,7 +11,8 @@ function CartDropdown() {
     const navigate = useNavigate();
     
     const goToCheckoutHandler = () => {
-        navigate('/checkout');
+        // navigate('/checkout');
+        navigate(`${process.env.REACT_APP_deployPath}/checkout`)
         setIsCartOpen(false);
     }
 

@@ -22,18 +22,18 @@ function Navigation() {
     return ( 
         <Fragment>
             <div className="navigation">
-                <Link className="logo-container" to='/'>
+                <Link className="logo-container" to={`${process.env.REACT_APP_deployPath}`}>
                     <CrwnLogo className="logo" />
                 </Link>
 
                 <div className="nav-links-container">
-                    <Link className="nav-link" to="/shop" onClick={() => setIsCartOpen(false)}>
+                    <Link className="nav-link" to="shop" onClick={() => setIsCartOpen(false)}>
                         SHOP    
                     </Link>
                     {currentUser ? (
                         <button className="sign-out-button" onClick={signOutHandler} >SIGN OUT</button>
                     ) : ( 
-                        <Link className="nav-link" to="/auth" onClick={() => setIsCartOpen(false)}>
+                        <Link className="nav-link" to="auth" onClick={() => setIsCartOpen(false)}>
                             SIGN IN
                         </Link>
                     )}

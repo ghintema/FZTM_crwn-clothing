@@ -8,9 +8,10 @@ import Checkout from './routes/checkout/checkout.component';
 
 function App() {
 
+  console.log(process.env.REACT_APP_deployPath)
   return (  
     <Routes>
-      <Route path='/' element={<Navigation />} >
+      <Route path={process.env.REACT_APP_deployPath} element={<Navigation />} >
         <Route index element={<Home  />} />
         <Route path='shop/*' element={<Shop  />} /> 
         <Route path='auth/' element={<Authentication  />} /> 
